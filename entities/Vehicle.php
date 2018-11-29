@@ -6,6 +6,7 @@ abstract class Vehicle
 {
     protected   $id,
                 $brand,
+                $type,
                 $color,
                 $spec,
                 $doors;
@@ -110,6 +111,22 @@ abstract class Vehicle
 
         return $this;
     }
+
+      /**
+     * Set Type
+     *
+     * @param string $type
+     * @return self
+     */
+      public function setType(string $type)
+    {
+        if (is_string($type))
+        {
+            $this->type = $type;
+        }
+
+        return $this;
+    }
     
     /**
      * Set numbers of doors
@@ -163,6 +180,17 @@ abstract class Vehicle
     {
         return $this->spec;
     }
+
+      /**
+    * Get the type
+    *
+    */
+
+    public function getType()
+    {
+        return $this->type;
+    }
+
 
     /**
     * Get value of doors

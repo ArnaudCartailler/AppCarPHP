@@ -2,7 +2,7 @@
   include("template/header.php")
  ?>
 
-<form id="FormInfo">
+<form id="FormInfo" action="" method="POST">
   <div class="form-row align-items-center w-50 ml-5 mt-3">
     <div class="col-12">
       <label for="inlineFormCustomSelect">Type</label>
@@ -34,6 +34,8 @@
       <input type="text" class="form-control" id="spec" placeholder="Specificities" required />
     </div>
   </div>
+
+  <button type="submit"></button>
   </form>
 
   
