@@ -1,60 +1,37 @@
 <?php
-
-declare(strict_types = 1);
-
 class CarManager
 {
-    private $_db;
+    private $_bdd;
+    public function __construct(PDO $bdd)
+    {
+        $this->setDb($bdd);
+    }
 
-
-    /**
-     * constructor
+      /**
+     * set the bdd
      *
-     * @param PDO $db
+     * @param PDO $bdd
+     * @return self
      */
-    public function __construct(PDO $db)
+    public function setDb(PDO $bdd)
     {
-        $this->setDb($db);
-    }
-
+        $this->_bdd = $bdd;
+    } 
     /**
-     * Get the value of _db
-     */ 
-    public function getDb()
-    {
-        return $this->_db;
-    }
-
-    /**
-     * Set the value of _db
-     *
-     * @param PDO $db
-     * @return  self
-     */ 
-
-    public function setDb(PDO $db)
-    {
-        $this->_db = $db;
-
-        return $this;
-    }
-
-        /**
      * Add new Car
      *
      * @param Car $car
      * @return self
      */
-
     public function addCar(Car $car)
     {
-        $req = $this->_bdd->prepare('INSERT INTO Vehicles(brand, type, color, spec, doors) VALUES(:brand, :type, :color, :spec, :doors)');
-        $req->bindValue(':brand', $car->getBrand(), PDO::PARAM_STR);
-        $req->bindValue(':type', $car->getType(), PDO::PARAM_STR);
-        $req->bindValue(':color', $car->getType(), PDO::PARAM_STR);
-        $req->bindValue(':spec', $car->getType(), PDO::PARAM_STR);
-        $req->bindValue(':doors ',$car->getDoor(), PDO::PARAM_INT);
-        $req->execute();
+        $addBdd = $this->_bdd->prepare('INSERT INTO Vehicles(brand, type, doors, doors, spec) VALUES(:brand, :type, :doors, :doors, :spec)');
+        $addBdd->bindValue(':brand', $car->getbrand(), PDO::PARAM_STR);
+        $addBdd->bindValue(':type', $car->getType(), PDO::PARAM_STR);
+        $addBdd->bindValue(':doors', $car->getDoor(), PDO::PARAM_INT);
+        $addBdd->bindValue(':doors', $car->getdoors(), PDO::PARAM_INT);
+        $addBdd->bindValue(':spec', $car->getspec(), PDO::PARAM_STR);
+        $addBdd->execute();
     }
     /**
      * delete car by id
@@ -75,11 +52,11 @@ class CarManager
     public function getCarById(int $id)
     {
         $car;
-        $getCars = $this->_bdd->prepare('SELECT * FROM Vehicles WHERE id = :id');
-        $getCars->bindValue(':id', $id, PDO::PARAM_INT);
-        $getCars->execute();
-        $getAllCars = $getCars->fetchAll();
-        foreach ($getAllCars as $oneCar) {
+        $takeBdd = $this->_bdd->prepare('SELECT * FROM Vehicles WHERE id = :id');
+        $takeBdd->bindValue(':id', $id, PDO::PARAM_INT);
+        $takeBdd->execute();
+        $takeAllBdd = $takeBdd->fetchAll();
+        foreach ($takeAllBdd as $oneCar) {
             $car = new Car($oneCar);
         }
         return $car;
@@ -92,11 +69,11 @@ class CarManager
     public function getCars()
     {
         $cars = [];
-        $getCars = $this->_bdd->prepare('SELECT * FROM Vehicles WHERE type = :cars');
-        $getCars->bindValue(':cars', 'Voiture', PDO::PARAM_STR);
-        $getCars->execute();
-        $getAllCars = $getCars->fetchAll();
-        foreach ($getAllCars as $allCars) {
+        $takeBdd = $this->_bdd->prepare('SELECT * FROM Vehicles WHERE type = :cars');
+        $takeBdd->bindValue(':cars', 'cars', PDO::PARAM_STR);
+        $takeBdd->execute();
+        $takeAllBdd = $takeBdd->fetchAll();
+        foreach ($takeAllBdd as $allCars) {
             $cars[] = new Car($allCars);
         }
         return $cars;
@@ -109,10 +86,10 @@ class CarManager
     public function getVehicles()
     {
         $vehicles = [];
-        $getCars = $this->_bdd->prepare('SELECT * FROM Vehicles ORDER BY id DESC');
-        $getCars->execute();
-        $getAllCars = $getCars->fetchAll();
-        foreach ($getAllCars as $allVehicles) {
+        $takeBdd = $this->_bdd->prepare('SELECT * FROM Vehicles ORDER BY id DESC');
+        $takeBdd->execute();
+        $takeAllBdd = $takeBdd->fetchAll();
+        foreach ($takeAllBdd as $allVehicles) {
             $vehicles[] = new Car($allVehicles);
         }
         return $vehicles;
@@ -125,15 +102,14 @@ class CarManager
      */
     public function update(Car $car)
     {
-        $updateBdd = $this->_bdd->prepare('UPDATE Vehicles SET brand = :brand, type = :type, color = :color, spec = :spec, doors = :doors WHERE id = :id');
-        $req->bindValue(':brand', $car->getBrand(), PDO::PARAM_STR);
-        $req->bindValue(':type', $car->getType(), PDO::PARAM_STR);
-        $req->bindValue(':color', $car->getType(), PDO::PARAM_STR);
-        $req->bindValue(':spec', $car->getType(), PDO::PARAM_STR);
-        $req->bindValue(':doors ',$car->getDoor(), PDO::PARAM_INT);
+        $updateBdd = $this->_bdd->prepare('UPDATE vehicles SET brand = :brand, type = :type, doors = :doors, doors = :doors, spec = :spec WHERE id = :id');
+        $updateBdd->bindValue(':id', $car->getId(), PDO::PARAM_STR);
+        $updateBdd->bindValue(':brand', $car->getbrand(), PDO::PARAM_STR);
+        $updateBdd->bindValue(':type', $car->getType(), PDO::PARAM_STR);
+        $updateBdd->bindValue(':doors', $car->getDoor(), PDO::PARAM_INT);
+        $updateBdd->bindValue(':doors', $car->getdoors(), PDO::PARAM_INT);
+        $updateBdd->bindValue(':spec', $car->getspec(), PDO::PARAM_STR);
         $updateBdd->execute();
     }
-    
-
-
+  
 }

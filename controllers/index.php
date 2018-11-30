@@ -5,19 +5,21 @@ require "../model/Database.php";
 
 function chargerClasse($classname)
 {
-    if (file_exists('../model/'. ucfirst($classname).'.php')) {
+    if (file_exists('../model/'. ucfirst($classname).'.php')) 
+    {
         require '../model/'. ucfirst($classname).'.php';
-    } else {
+    } else 
+    {
         require '../entities/'. ucfirst($classname).'.php';
     }
 }
 spl_autoload_register('chargerClasse');
 
-$bdd = Database::BDD();
+$db = Database::DB();
 
 if (!isset($_GET['id'])) 
 {
-    $carManager = new CarManager($bdd);
+    $carManager = new CarManager($db);
     $objectVehicle = $carManager->getVehicles();
 }
 if (isset($_GET['id'])) {
@@ -26,17 +28,17 @@ if (isset($_GET['id'])) {
 
     if ($takeType == "Motorcycle") 
     {
-        $takeVehicle = new MotorManager($bdd);
+        $takeVehicle = new MotorManager($db);
         $objectVehicle = $takeVehicle->getMotorById($takeId);
 
     } elseif ($takeType == "Car") 
     {
-        $takeVehicle = new CarManager($bdd);
+        $takeVehicle = new CarManager($db);
         $objectVehicle = $takeVehicle->getCarById($takeId);
 
     } elseif ($takeType == "Truck") 
     {
-        $takeVehicle = new TruckManager($bdd);
+        $takeVehicle = new TruckManager($db);
         $objectVehicle = $takeVehicle->getTruckById($takeId);
     }
 }
@@ -49,32 +51,33 @@ if (isset($_GET['remove']))
         $takeType = $_GET['type'];
         if ($takeType == "Motorcycle") 
         {
-            $takeVehicle = new MotorManager($bdd);
+            $takeVehicle = new MotorManager($db);
             $objectVehicle = $takeVehicle->getMotorById($takeId);
             $removeVehicle = $takeVehicle->deleteMotor($objectVehicle);
             header('location: index.php');
 
-        } elseif ($takeType == "Car") 
-        {
-            $takeVehicle = new CarManager($bdd);
-            $objectVehicle = $takeVehicle->getCarById($takeId);
-            $removeVehicle = $takeVehicle->deleteCar($objectVehicle);
-            header('location: index.php');
+            } elseif ($takeType == "Car") 
+            {
+                $takeVehicle = new CarManager($db);
+                $objectVehicle = $takeVehicle->getCarById($takeId);
+                $removeVehicle = $takeVehicle->deleteCar($objectVehicle);
+                header('location: index.php');
 
-        } elseif ($takeType == "Truck") 
-        {
-            $takeVehicle = new TruckManager($bdd);
-            $objectVehicle = $takeVehicle->getTruckById($takeId);
-            $removeVehicle = $takeVehicle->deleteTruck($objectVehicle);
-            header('location: index.php');
-        } else 
-        {
-            header('location: index.php');
-        }
-    } else 
-    {
-        header('location: index.php');
-    }
+            } elseif ($takeType == "Truck") 
+            {
+                $takeVehicle = new TruckManager($db);
+                $objectVehicle = $takeVehicle->getTruckById($takeId);
+                $removeVehicle = $takeVehicle->deleteTruck($objectVehicle);
+                header('location: index.php');
+
+                } else 
+                {
+                    header('location: index.php');
+                }
+                    } else 
+                    {
+                        header('location: index.php');
+                    }
 }
 
 

@@ -101,7 +101,15 @@ textarea {
 /* ##########################   SMARTPHONE   ########################### */
 /* ##################################################################### */
 /* Extra small devices (phones, less than 768px) */
-
+@media (max-width: 768px){
+       button {
+         background-color: lightblue;
+         border: none;
+         border-radius: 10px;
+         border: 1px solid lightgrey;
+         padding: 5px;
+       }
+}
 
 
 /* ##################################################################### */
@@ -110,6 +118,13 @@ textarea {
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
 
+        button {
+          background-color: lightblue;
+          border: none;
+          border-radius: 10px;
+          border: 1px solid lightgrey;
+          padding: 5px;
+        }
 }
 
 /* ##################################################################### */
@@ -117,6 +132,14 @@ textarea {
 /* ##################################################################### */
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
+
+    button{
+        background-color: lightblue;
+        border : none;
+        border-radius: 10px;
+        border : 1px solid lightgrey;
+        padding : 5px;
+    }
 
 }
 
