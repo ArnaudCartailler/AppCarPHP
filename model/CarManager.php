@@ -25,11 +25,11 @@ class CarManager
      */
     public function addCar(Car $car)
     {
-        $addBdd = $this->_bdd->prepare('INSERT INTO Vehicles(brand, type, doors, doors, spec) VALUES(:brand, :type, :doors, :doors, :spec)');
+        $addBdd = $this->_bdd->prepare('INSERT INTO Vehicles(brand, type, color, doors, spec) VALUES(:brand, :type, :color, :doors, :spec)');
         $addBdd->bindValue(':brand', $car->getbrand(), PDO::PARAM_STR);
         $addBdd->bindValue(':type', $car->getType(), PDO::PARAM_STR);
-        $addBdd->bindValue(':doors', $car->getDoor(), PDO::PARAM_INT);
-        $addBdd->bindValue(':doors', $car->getdoors(), PDO::PARAM_INT);
+        $addBdd->bindValue(':color', $car->getColor(), PDO::PARAM_INT);
+        $addBdd->bindValue(':doors', $car->getDoors(), PDO::PARAM_INT);
         $addBdd->bindValue(':spec', $car->getspec(), PDO::PARAM_STR);
         $addBdd->execute();
     }
@@ -102,12 +102,12 @@ class CarManager
      */
     public function update(Car $car)
     {
-        $updateBdd = $this->_bdd->prepare('UPDATE vehicles SET brand = :brand, type = :type, doors = :doors, doors = :doors, spec = :spec WHERE id = :id');
+        $updateBdd = $this->_bdd->prepare('UPDATE vehicles SET brand = :brand, type = :type, color = :color, doors = :doors, spec = :spec WHERE id = :id');
         $updateBdd->bindValue(':id', $car->getId(), PDO::PARAM_STR);
         $updateBdd->bindValue(':brand', $car->getbrand(), PDO::PARAM_STR);
         $updateBdd->bindValue(':type', $car->getType(), PDO::PARAM_STR);
-        $updateBdd->bindValue(':doors', $car->getDoor(), PDO::PARAM_INT);
-        $updateBdd->bindValue(':doors', $car->getdoors(), PDO::PARAM_INT);
+        $updateBdd->bindValue(':color', $car->getColor(), PDO::PARAM_INT);
+        $updateBdd->bindValue(':doors', $car->getDoors(), PDO::PARAM_INT);
         $updateBdd->bindValue(':spec', $car->getspec(), PDO::PARAM_STR);
         $updateBdd->execute();
     }

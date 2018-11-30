@@ -51,9 +51,9 @@ class TruckManager
         $req = $this->_bdd->prepare('INSERT INTO Vehicles(brand, type, color, spec, doors) VALUES(:brand, :type, :color, :spec, :doors)');
         $req->bindValue(':brand', $truck->getBrand(), PDO::PARAM_STR);
         $req->bindValue(':type', $truck->getType(), PDO::PARAM_STR);
-        $req->bindValue(':color', $truck->getType(), PDO::PARAM_STR);
-        $req->bindValue(':spec', $truck->getType(), PDO::PARAM_STR);
-        $req->bindValue(':doors ',$truck->getDoor(), PDO::PARAM_INT);
+        $req->bindValue(':color', $truck->getColor(), PDO::PARAM_STR);
+        $req->bindValue(':spec', $truck->getSpec(), PDO::PARAM_STR);
+        $req->bindValue(':doors ',$truck->getDoors(), PDO::PARAM_INT);
         $req->execute();
     }
     /**
@@ -128,9 +128,9 @@ class TruckManager
         $updateBdd = $this->_bdd->prepare('UPDATE Vehicles SET brand = :brand, type = :type, color = :color, spec = :spec, doors = :doors WHERE id = :id');
         $req->bindValue(':brand', $truck->getBrand(), PDO::PARAM_STR);
         $req->bindValue(':type', $truck->getType(), PDO::PARAM_STR);
-        $req->bindValue(':color', $truck->getType(), PDO::PARAM_STR);
-        $req->bindValue(':spec', $truck->getType(), PDO::PARAM_STR);
-        $req->bindValue(':doors ',$truck->getDoor(), PDO::PARAM_INT);
+        $req->bindValue(':color', $truck->getColor(), PDO::PARAM_STR);
+        $req->bindValue(':spec', $truck->getSpec(), PDO::PARAM_STR);
+        $req->bindValue(':doors ',$truck->getDoors(), PDO::PARAM_INT);
         $updateBdd->execute();
     }
     

@@ -30,7 +30,7 @@ if (isset($_GET['verif']))
             $select = htmlspecialchars($_POST['select']);
             if ($_POST['doors'] >= 0) 
             {
-                $doors = htmlspecialchars($_POST['doors']);
+                $doors = $_POST['doors'];
                 if (!empty($_POST['spec'])) 
                 {
                     $spec = htmlspecialchars($_POST['spec']);
@@ -39,7 +39,7 @@ if (isset($_GET['verif']))
                             if (intval($_POST['spec']) >= 0) 
                             {
                                 $doors = intval($_POST['doors']);
-                                $spec = intval($_POST['spec']);
+                                $spec = $_POST['spec'];
                                 if ($_POST['select'] == 'Car') 
                                 {
                                     $CarManager = new CarManager($db);
@@ -63,13 +63,13 @@ if (isset($_GET['verif']))
                                 } elseif ($_POST['select'] == 'Motor') 
                                 {
                                     $MotorManager = new MotorManager($db);
-                                    $newMotorbike = new Motor([
+                                    $newMotor = new Motor([
                                         'brand' => $brand,
                                         'type' => $select,
                                         'doors' => 0,
                                         'spec' => $spec,
                                     ]);
-                                    $addMotorbike = $MotorManager->addMotor($newMotorbike);
+                                    $addMotor = $MotorManager->addMotor($newMotor);
                                 }
                                 header('URL=AddForm.php');
                             }
@@ -79,4 +79,5 @@ if (isset($_GET['verif']))
             }
         }
 }
+
 require "../views/indexVue.php";
