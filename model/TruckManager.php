@@ -64,7 +64,7 @@ class TruckManager
      */
     public function deleteTruck(Truck $truck)
     {
-        $this->_bdd->exec('DELETE FROM Vehicles WHERE id = '.$truck->getId());
+        $this->getDb()->exec('DELETE FROM Vehicles WHERE id = '.$truck->getId());
     }
     /**
      * get one truck by id

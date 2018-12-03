@@ -10,8 +10,6 @@
       <li>Doors : <?php echo $objectVehicle->getDoors(); ?></li>
     </ul>
  
-      <button class="btn btn-info" href="delete.php?id=<?php echo $vehicle->getId(); ?>&type=<?php echo $vehicle->getType(); ?>">Delete</button>
-
  <?php
    include("template/footer.php")
    ?>

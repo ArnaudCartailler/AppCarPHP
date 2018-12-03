@@ -47,7 +47,9 @@
       <li>Color : <?php echo $vehicle->getColor(); ?></li>
       <li>Spec : <?php echo $vehicle->getSpec(); ?></li>
       <li>Doors :  <?php echo $vehicle->getDoors(); ?></li>
-      <li><a class="btn btn-info" href="details.php?id=<?php echo $vehicle->getId(); ?>&type=<?php echo $vehicle->getType(); ?>">Details -></a></li>
+      <li><a class="btn btn-info mb-2" href="details.php?id=<?php echo $vehicle->getId(); ?>&type=<?php echo $vehicle->getType(); ?>">Details</a></li>
+      <li><a class="btn btn-danger" href="index.php?remove=<?php echo $vehicle->getId(); ?>&type=<?php echo $vehicle->getType(); ?>">Delete</a></li>
+
     </ul>
 
 <?php

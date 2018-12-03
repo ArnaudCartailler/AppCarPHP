@@ -55,29 +55,29 @@ if (isset($_GET['remove']))
             $takeVehicle = new MotorManager($db);
             $objectVehicle = $takeVehicle->getMotorById($takeId);
             $removeVehicle = $takeVehicle->deleteMotor($objectVehicle);
-            header('location: details.php');
+            header('location: index.php');
 
             } elseif ($takeType == "cars") 
             {
                 $takeVehicle = new CarManager($db);
                 $objectVehicle = $takeVehicle->getCarById($takeId);
                 $removeVehicle = $takeVehicle->deleteCar($objectVehicle);
-                header('location: details.php');
+                header('location: index.php');
 
             } elseif ($takeType == "trucks") 
             {
                 $takeVehicle = new TruckManager($db);
                 $objectVehicle = $takeVehicle->getTruckById($takeId);
                 $removeVehicle = $takeVehicle->deleteTruck($objectVehicle);
-                header('location: details.php');
+                header('location: index.php');
 
                 } else 
                 {
-                    header('location: details.php');
+                    header('location: index.php');
                 }
                     } else 
                     {
-                        header('location: details.php');
+                        header('location: index.php');
                     }
 }
 
