@@ -2,15 +2,15 @@
   include("template/header.php")
  ?>
 
-<form id="FormInfo" action="AddForm.php" method="POST">
+<form id="FormInfo" action="index.php?verif=1" method="POST">
   <div class="form-row align-items-center w-50 ml-5 mt-3">
     <div class="col-12">
       <label for="inlineFormCustomSelect">Type</label>
       <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="select">
         <option selected>Choose your vehicule</option>
-        <option id="car" value="1" name="car">Car</option>
-        <option id="truck" value="2" name="truck">Truck</option>
-        <option id="motor" value="3" name="motor">Motorcycle</option>
+        <option id="car" value="cars" name="car">Car</option>
+        <option id="truck" value="trucks" name="truck">Truck</option>
+        <option id="motor" value="motors" name="motor">Motorcycle</option>
       </select>
     </div>
   </div>
@@ -38,18 +38,22 @@
   <button type="submit" class=" w-50 ml-5">Send the vehicle</button>
   </form>
 
+<div class="row">
   <?php foreach ($objectVehicle as $vehicle) {
               ?>
-
-    <ul class="list-unstyled mt-3">
-      <li>Nom du véhicule: <?php echo $vehicle->getBrand(); ?></li>
-      <li>Couleur: <?php echo $vehicle->getColor(); ?></li>
-      <li><a class="btn btn-info" href="index.php?id=<?php echo $vehicle->getId(); ?>&type=<?php echo $vehicle->getType(); ?>">Voir plus -></a></li>
+    <ul class="list-unstyled m-5">
+      <li>Type: <?php echo $vehicle->getType(); ?></li>
+      <li>Brand: <?php echo $vehicle->getBrand(); ?></li>
+      <li>Color : <?php echo $vehicle->getColor(); ?></li>
+      <li>Spec : <?php echo $vehicle->getSpec(); ?></li>
+      <li>Doors :  <?php echo $vehicle->getDoors(); ?></li>
+      <li><a class="btn btn-info" href="details.php?id=<?php echo $vehicle->getId(); ?>&type=<?php echo $vehicle->getType(); ?>">Details -></a></li>
     </ul>
 
 <?php
         } ?>
+   </div>
 
  <?php
    include("template/footer.php")
-  ?>
+   ?>

@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 
 require "../model/Database.php";
 
@@ -20,10 +20,6 @@ spl_autoload_register('chargerClasse');
 $db = Database::DB();
 
 
-if (isset($_GET['verif'])) 
-{
-    if (!empty($_POST['brand'])) 
-    {
         $brand = htmlspecialchars($_POST['brand']);
         if (!empty($_POST['select'])) 
         {
@@ -34,22 +30,23 @@ if (isset($_GET['verif']))
                 if (!empty($_POST['spec'])) 
                 {
                     $spec = htmlspecialchars($_POST['spec']);
-                        if (intval($_POST['doors']) >= 0) 
+                        if (htmlspecialchars($_POST['doors']) >= 0) 
                         {
-                            if (intval($_POST['spec']) >= 0) 
+                            if (htmlspecialchars($_POST['spec'])) 
                             {
                                 $doors = intval($_POST['doors']);
-                                $spec = $_POST['spec'];
-                                if ($_POST['select'] == 'Car') 
-                                {
-                                    $CarManager = new CarManager($db);
-                                    $newCar = new Car([
-                                        'brand' => $brand,
-                                        'type' => $select,
-                                        'doors' => $doors,
-                                        'spec' => $spec,
-                                    ]);
-                                    $addCar = $CarManager->addCar($newCar);
+                                    $spec = $_POST['spec'];
+                                    if ($_POST['select'] == 'Car') 
+                                    {
+                                        $CarManager = new CarManager($db);
+                                        $newCar = new Car([
+                                            'brand' => $brand,
+                                            'type' => $select,
+                                            'doors' => $doors,
+                                            'spec' => $spec,
+                                        ]);
+                                        $addCar = $CarManager->addCar($newCar);
+                                    header('location : index.php');
                                 } elseif ($_POST['select'] == 'Truck') 
                                 {
                                     $TruckManager = new TruckManager($db);
@@ -60,6 +57,8 @@ if (isset($_GET['verif']))
                                         'spec' => $spec,
                                     ]);
                                     $addTruck = $TruckManager->addTruck($newTruck);
+                                    header('location : index.php');
+
                                 } elseif ($_POST['select'] == 'Motor') 
                                 {
                                     $MotorManager = new MotorManager($db);
@@ -70,14 +69,13 @@ if (isset($_GET['verif']))
                                         'spec' => $spec,
                                     ]);
                                     $addMotor = $MotorManager->addMotor($newMotor);
+                                    header('location : index.php');
+
                                 }
-                                header('URL=AddForm.php');
+                                    header('location : index.php');
                             }
                         }
                     }
                 }
             }
-        }
-}
-
-require "../views/indexVue.php";
+ -->

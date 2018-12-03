@@ -48,12 +48,12 @@ class MotorManager
 
     public function addMotor(Motor $motor)
     {
-        $req = $this->_bdd->prepare('INSERT INTO Vehicles(brand, type, color, spec, doors) VALUES(:brand, :type, :color, :spec, :doors)');
+        $req = $this->getDb()->prepare('INSERT INTO Vehicles(brand, type, color, spec, doors) VALUES(:brand, :type, :color, :spec, :doors)');
         $req->bindValue(':brand', $motor->getBrand(), PDO::PARAM_STR);
         $req->bindValue(':type', $motor->getType(), PDO::PARAM_STR);
         $req->bindValue(':color', $motor->getColor(), PDO::PARAM_STR);
         $req->bindValue(':spec', $motor->getSpec(), PDO::PARAM_STR);
-        $req->bindValue(':doors ',$motor->getDoors(), PDO::PARAM_INT);
+        $req->bindValue(':doors', $motor->getDoors(), PDO::PARAM_INT);
         $req->execute();
     }
     /**
@@ -64,7 +64,7 @@ class MotorManager
      */
     public function deleteMotor(Motor $motor)
     {
-        $this->_bdd->exec('DELETE FROM Vehicles WHERE id = '.$motor->getId());
+        $this->_db->exec('DELETE FROM Vehicles WHERE id = '.$motor->getId());
     }
     /**
      * get one motor by id
@@ -75,7 +75,7 @@ class MotorManager
     public function getMotorById(int $id)
     {
         $motor;
-        $getMotors = $this->_bdd->prepare('SELECT * FROM Vehicles WHERE id = :id');
+        $getMotors = $this->_db->prepare('SELECT * FROM Vehicles WHERE id = :id');
         $getMotors->bindValue(':id', $id, PDO::PARAM_INT);
         $getMotors->execute();
         $getAllMotors = $getMotors->fetchAll();
@@ -92,7 +92,7 @@ class MotorManager
     public function getMotors()
     {
         $motors = [];
-        $getMotors = $this->_bdd->prepare('SELECT * FROM Vehicles WHERE type = :motors');
+        $getMotors = $this->_db->prepare('SELECT * FROM Vehicles WHERE type = :motors');
         $getMotors->bindValue(':motors', 'Motorcycle', PDO::PARAM_STR);
         $getMotors->execute();
         $getAllMotors = $getMotors->fetchAll();
@@ -109,7 +109,7 @@ class MotorManager
     public function getVehicles()
     {
         $vehicles = [];
-        $getMotors = $this->_bdd->prepare('SELECT * FROM Vehicles ORDER BY id DESC');
+        $getMotors = $this->_db->prepare('SELECT * FROM Vehicles ORDER BY id DESC');
         $getMotors->execute();
         $getAllMotors = $getMotors->fetchAll();
         foreach ($getAllMotors as $allVehicles) {
@@ -125,7 +125,7 @@ class MotorManager
      */
     public function update(Car $motor)
     {
-        $updateBdd = $this->_bdd->prepare('UPDATE Vehicles SET brand = :brand, type = :type, color = :color, spec = :spec, doors = :doors WHERE id = :id');
+        $updateBdd = $this->_db->prepare('UPDATE Vehicles SET brand = :brand, type = :type, color = :color, spec = :spec, doors = :doors WHERE id = :id');
         $req->bindValue(':brand', $motor->getBrand(), PDO::PARAM_STR);
         $req->bindValue(':type', $motor->getType(), PDO::PARAM_STR);
         $req->bindValue(':color', $motor->getColor(), PDO::PARAM_STR);

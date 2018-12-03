@@ -48,12 +48,12 @@ class TruckManager
 
     public function addTruck(Truck $truck)
     {
-        $req = $this->_bdd->prepare('INSERT INTO Vehicles(brand, type, color, spec, doors) VALUES(:brand, :type, :color, :spec, :doors)');
+        $req = $this->getDb()->prepare('INSERT INTO Vehicles(brand, type, color, spec, doors) VALUES(:brand, :type, :color, :spec, :doors)');
         $req->bindValue(':brand', $truck->getBrand(), PDO::PARAM_STR);
         $req->bindValue(':type', $truck->getType(), PDO::PARAM_STR);
         $req->bindValue(':color', $truck->getColor(), PDO::PARAM_STR);
         $req->bindValue(':spec', $truck->getSpec(), PDO::PARAM_STR);
-        $req->bindValue(':doors ',$truck->getDoors(), PDO::PARAM_INT);
+        $req->bindValue(':doors', $truck->getDoors(), PDO::PARAM_INT);
         $req->execute();
     }
     /**
