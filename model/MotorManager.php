@@ -75,7 +75,7 @@ class MotorManager
     public function getMotorById(int $id)
     {
         $motor;
-        $getMotors = $this->_db->prepare('SELECT * FROM Vehicles WHERE id = :id');
+        $getMotors = $this->getDb()->prepare('SELECT * FROM Vehicles WHERE id = :id');
         $getMotors->bindValue(':id', $id, PDO::PARAM_INT);
         $getMotors->execute();
         $getAllMotors = $getMotors->fetchAll();
@@ -83,6 +83,24 @@ class MotorManager
             $motor = new Motor($oneMotor);
         }
         return $motor;
+    }
+         public function getVehicleById(int $id)
+    {
+        $vehicule;
+        $takeBdd = $this->getDb()->prepare('SELECT * FROM Vehicles WHERE id = :id');
+        $takeBdd->bindValue(':id', $id, PDO::PARAM_INT);
+        $takeBdd->execute();
+        $takeAllBdd = $takeBdd->fetchAll();
+        foreach ($takeAllBdd as $oneVehicule) {
+            if ($oneVehicule['type'] == 'trucks') {
+                $vehicule = new Truck($oneVehicule);
+            } elseif ($oneVehicule['type'] == 'cars') {
+                $vehicule = new Car($oneVehicule);
+            } elseif ($oneVehicule['type'] == 'motors') {
+                $vehicule = new Motor($oneVehicule);
+            }
+        }
+        return $vehicule;
     }
     /**
      * get all motors
@@ -92,7 +110,7 @@ class MotorManager
     public function getMotors()
     {
         $motors = [];
-        $getMotors = $this->_db->prepare('SELECT * FROM Vehicles WHERE type = :motors');
+        $getMotors = $this->getDb()->prepare('SELECT * FROM Vehicles WHERE type = :motors');
         $getMotors->bindValue(':motors', 'Motorcycle', PDO::PARAM_STR);
         $getMotors->execute();
         $getAllMotors = $getMotors->fetchAll();
@@ -109,7 +127,7 @@ class MotorManager
     public function getVehicles()
     {
         $vehicles = [];
-        $getMotors = $this->_db->prepare('SELECT * FROM Vehicles ORDER BY id DESC');
+        $getMotors = $this->getDb()->prepare('SELECT * FROM Vehicles ORDER BY id DESC');
         $getMotors->execute();
         $getAllMotors = $getMotors->fetchAll();
         foreach ($getAllMotors as $allVehicles) {
@@ -125,7 +143,7 @@ class MotorManager
      */
     public function update(Car $motor)
     {
-        $updateBdd = $this->_db->prepare('UPDATE Vehicles SET brand = :brand, type = :type, color = :color, spec = :spec, doors = :doors WHERE id = :id');
+        $updateBdd = $this->getDb()->prepare('UPDATE Vehicles SET brand = :brand, type = :type, color = :color, spec = :spec, doors = :doors WHERE id = :id');
         $req->bindValue(':brand', $motor->getBrand(), PDO::PARAM_STR);
         $req->bindValue(':type', $motor->getType(), PDO::PARAM_STR);
         $req->bindValue(':color', $motor->getColor(), PDO::PARAM_STR);

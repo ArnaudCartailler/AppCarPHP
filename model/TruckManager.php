@@ -75,7 +75,7 @@ class TruckManager
     public function getTruckById(int $id)
     {
         $truck;
-        $getTrucks = $this->_bdd->prepare('SELECT * FROM Vehicles WHERE id = :id');
+        $getTrucks = $this->getDb()->prepare('SELECT * FROM Vehicles WHERE id = :id');
         $getTrucks->bindValue(':id', $id, PDO::PARAM_INT);
         $getTrucks->execute();
         $getAllTrucks = $getTrucks->fetchAll();
@@ -84,6 +84,26 @@ class TruckManager
         }
         return $truck;
     }
+
+         public function getVehicleById(int $id)
+    {
+        $vehicule;
+        $takeBdd = $this->getDb()->prepare('SELECT * FROM Vehicles WHERE id = :id');
+        $takeBdd->bindValue(':id', $id, PDO::PARAM_INT);
+        $takeBdd->execute();
+        $takeAllBdd = $takeBdd->fetchAll();
+        foreach ($takeAllBdd as $oneVehicule) {
+            if ($oneVehicule['type'] == 'trucks') {
+                $vehicule = new Truck($oneVehicule);
+            } elseif ($oneVehicule['type'] == 'cars') {
+                $vehicule = new Car($oneVehicule);
+            } elseif ($oneVehicule['type'] == 'motors') {
+                $vehicule = new Motor($oneVehicule);
+            }
+        }
+        return $vehicule;
+    }
+    
     /**
      * get all trucks
      *
@@ -92,7 +112,7 @@ class TruckManager
     public function getTruck()
     {
         $trucks = [];
-        $getTrucks = $this->_bdd->prepare('SELECT * FROM Vehicles WHERE type = :trucks');
+        $getTrucks = $this->getDb()->prepare('SELECT * FROM Vehicles WHERE type = :trucks');
         $getTrucks->bindValue(':cars', 'Voiture', PDO::PARAM_STR);
         $getTrucks->execute();
         $getAllTrucks = $getTrucks->fetchAll();
@@ -109,7 +129,7 @@ class TruckManager
     public function getVehicles()
     {
         $vehicles = [];
-        $getTrucks = $this->_bdd->prepare('SELECT * FROM Vehicles ORDER BY id DESC');
+        $getTrucks = $this->getDb()->prepare('SELECT * FROM Vehicles ORDER BY id DESC');
         $getTrucks->execute();
         $getAllTrucks = $getTrucks->fetchAll();
         foreach ($getAllTrucks as $allVehicles) {
@@ -125,7 +145,7 @@ class TruckManager
      */
     public function update(Truck $truck)
     {
-        $updateBdd = $this->_bdd->prepare('UPDATE Vehicles SET brand = :brand, type = :type, color = :color, spec = :spec, doors = :doors WHERE id = :id');
+        $updateBdd = $this->getDb()->prepare('UPDATE Vehicles SET brand = :brand, type = :type, color = :color, spec = :spec, doors = :doors WHERE id = :id');
         $req->bindValue(':brand', $truck->getBrand(), PDO::PARAM_STR);
         $req->bindValue(':type', $truck->getType(), PDO::PARAM_STR);
         $req->bindValue(':color', $truck->getColor(), PDO::PARAM_STR);

@@ -84,23 +84,26 @@ class CarManager
         }
         return $car;
     }
-    /**
-     * get all cars
-     *
-     * @return self
-     */
-    public function getCars()
+
+     public function getVehicleById(int $id)
     {
-        $cars = [];
-        $takeBdd = $this->getDb()->prepare('SELECT * FROM Vehicles WHERE type = :cars');
-        $takeBdd->bindValue(':cars', 'cars', PDO::PARAM_STR);
+        $vehicule;
+        $takeBdd = $this->getDb()->prepare('SELECT * FROM Vehicles WHERE id = :id');
+        $takeBdd->bindValue(':id', $id, PDO::PARAM_INT);
         $takeBdd->execute();
         $takeAllBdd = $takeBdd->fetchAll();
-        foreach ($takeAllBdd as $allCars) {
-            $cars[] = new Car($allCars);
+        foreach ($takeAllBdd as $oneVehicule) {
+            if ($oneVehicule['type'] == 'trucks') {
+                $vehicule = new Truck($oneVehicule);
+            } elseif ($oneVehicule['type'] == 'cars') {
+                $vehicule = new Car($oneVehicule);
+            } elseif ($oneVehicule['type'] == 'motors') {
+                $vehicule = new Motor($oneVehicule);
+            }
         }
-        return $cars;
+        return $vehicule;
     }
+
     /**
      * get all vehicle
      *
@@ -118,11 +121,6 @@ class CarManager
         return $vehicles;
     }
 
-    public function getVehicule($info)
-    {
-        $req = $this->getDb()->prepare('SELECT * FROM Vehicles WHERE id = :id');
-
-    }
     /**
      * update object by id
      *

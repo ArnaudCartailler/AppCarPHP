@@ -55,29 +55,29 @@ if (isset($_GET['remove']))
             $takeVehicle = new MotorManager($db);
             $objectVehicle = $takeVehicle->getMotorById($takeId);
             $removeVehicle = $takeVehicle->deleteMotor($objectVehicle);
-            header('location: index.php');
+            header('location: details.php');
 
             } elseif ($takeType == "cars") 
             {
                 $takeVehicle = new CarManager($db);
                 $objectVehicle = $takeVehicle->getCarById($takeId);
                 $removeVehicle = $takeVehicle->deleteCar($objectVehicle);
-                header('location: index.php');
+                header('location: details.php');
 
             } elseif ($takeType == "trucks") 
             {
                 $takeVehicle = new TruckManager($db);
                 $objectVehicle = $takeVehicle->getTruckById($takeId);
                 $removeVehicle = $takeVehicle->deleteTruck($objectVehicle);
-                header('location: index.php');
+                header('location: details.php');
 
                 } else 
                 {
-                    header('location: index.php');
+                    header('location: details.php');
                 }
                     } else 
                     {
-                        header('location: index.php');
+                        header('location: details.php');
                     }
 }
 
@@ -111,7 +111,7 @@ $brand = htmlspecialchars($_POST['brand']);
                                             'spec' => $spec,
                                         ]);
                                         $addCar = $CarManager->addCar($newCar);
-                                    header('location: index.php');
+                                    header('location: details.php');
                                 } elseif ($select == 'trucks') 
                                 {
                                     $TruckManager = new TruckManager($db);
@@ -123,7 +123,7 @@ $brand = htmlspecialchars($_POST['brand']);
                                         'spec' => $spec,
                                         ]);
                                         $addTruck = $TruckManager->addTruck($newTruck);
-                                        header('location: index.php');
+                                        header('location: details.php');
                                         
                                     } elseif ($select == 'motors') 
                                     {
@@ -136,10 +136,10 @@ $brand = htmlspecialchars($_POST['brand']);
                                             'spec' => $spec
                                             ]);
                                     $addMotor = $MotorManager->addMotor($newMotor);
-                                    // header('location: index.php');
+                                    // header('location: details.php');
 
                                 }
-                                    // header('location: index.php');
+                                    // header('location: details.php');
                             }
                         }
                     }
