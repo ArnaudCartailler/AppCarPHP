@@ -129,10 +129,9 @@ class CarManager
      */
     public function update(Car $car)
     {
-        $updateBdd = $this->getDb()->prepare('UPDATE vehicles SET brand = :brand, type = :type, color = :color, doors = :doors, spec = :spec WHERE id = :id');
+        $updateBdd = $this->getDb()->prepare('UPDATE Vehicles SET brand = :brand, color = :color, doors = :doors, spec = :spec WHERE id = :id');
         $updateBdd->bindValue(':id', $car->getId(), PDO::PARAM_STR);
         $updateBdd->bindValue(':brand', $car->getbrand(), PDO::PARAM_STR);
-        $updateBdd->bindValue(':type', $car->getType(), PDO::PARAM_STR);
         $updateBdd->bindValue(':color', $car->getColor(), PDO::PARAM_STR);
         $updateBdd->bindValue(':doors', $car->getDoors(), PDO::PARAM_INT);
         $updateBdd->bindValue(':spec', $car->getspec(), PDO::PARAM_STR);

@@ -141,15 +141,15 @@ class MotorManager
      * @param Car $motor
      * @return self
      */
-    public function update(Car $motor)
+    public function update(Motor $motor)
     {
-        $updateBdd = $this->getDb()->prepare('UPDATE Vehicles SET brand = :brand, type = :type, color = :color, spec = :spec, doors = :doors WHERE id = :id');
+        $req = $this->getDb()->prepare('UPDATE Vehicles SET brand = :brand, color = :color, spec = :spec, doors = :doors WHERE id = :id');
+        $req->bindValue(':id', $motor->getId(), PDO::PARAM_INT);
         $req->bindValue(':brand', $motor->getBrand(), PDO::PARAM_STR);
-        $req->bindValue(':type', $motor->getType(), PDO::PARAM_STR);
         $req->bindValue(':color', $motor->getColor(), PDO::PARAM_STR);
         $req->bindValue(':spec', $motor->getSpec(), PDO::PARAM_STR);
-        $req->bindValue(':doors ',$motor->getDoors(), PDO::PARAM_INT);
-        $updateBdd->execute();
+        $req->bindValue(':doors',$motor->getDoors(), PDO::PARAM_INT);
+        $req->execute();
     }
     
 
