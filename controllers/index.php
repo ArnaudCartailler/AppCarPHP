@@ -81,7 +81,9 @@ if (isset($_GET['remove']))
                     }
 }
 
-if (isset($_GET['verif'])) {
+
+if (isset($_GET['verif'])) 
+{
 $brand = htmlspecialchars($_POST['brand']);
         if (!empty($_POST['select'])) 
         {
@@ -110,8 +112,8 @@ $brand = htmlspecialchars($_POST['brand']);
                                             'color' => $color,
                                             'spec' => $spec,
                                         ]);
-                                        $addCar = $CarManager->addCar($newCar);
-                                    header('location: details.php');
+                                    $addCar = $CarManager->addCar($newCar);
+                                    header('location: index.php');
                                 } elseif ($select == 'trucks') 
                                 {
                                     $TruckManager = new TruckManager($db);
@@ -123,7 +125,7 @@ $brand = htmlspecialchars($_POST['brand']);
                                         'spec' => $spec,
                                         ]);
                                         $addTruck = $TruckManager->addTruck($newTruck);
-                                        header('location: details.php');
+                                        header('location: index.php');
                                         
                                     } elseif ($select == 'motors') 
                                     {
@@ -136,7 +138,7 @@ $brand = htmlspecialchars($_POST['brand']);
                                             'spec' => $spec
                                             ]);
                                     $addMotor = $MotorManager->addMotor($newMotor);
-                                    // header('location: details.php');
+                                    header('location: index.php');
 
                                 }
                                     // header('location: details.php');
@@ -147,6 +149,10 @@ $brand = htmlspecialchars($_POST['brand']);
             }
         }
     }
+
+    
+
+    
 
 include "../views/indexVue.php";
  ?>

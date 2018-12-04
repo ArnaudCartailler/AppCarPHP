@@ -145,13 +145,13 @@ class TruckManager
      */
     public function update(Truck $truck)
     {
-        $updateBdd = $this->getDb()->prepare('UPDATE Vehicles SET brand = :brand, type = :type, color = :color, spec = :spec, doors = :doors WHERE id = :id');
+        $req= $this->getDb()->prepare('UPDATE Vehicles SET brand = :brand, color = :color, spec = :spec, doors = :doors WHERE id = :id');
+        $req->bindValue(':id', $truck->getId(), PDO::PARAM_INT);
         $req->bindValue(':brand', $truck->getBrand(), PDO::PARAM_STR);
-        $req->bindValue(':type', $truck->getType(), PDO::PARAM_STR);
         $req->bindValue(':color', $truck->getColor(), PDO::PARAM_STR);
         $req->bindValue(':spec', $truck->getSpec(), PDO::PARAM_STR);
-        $req->bindValue(':doors ',$truck->getDoors(), PDO::PARAM_INT);
-        $updateBdd->execute();
+        $req->bindValue(':doors',$truck->getDoors(), PDO::PARAM_INT);
+        $req->execute();
     }
     
 

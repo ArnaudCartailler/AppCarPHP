@@ -132,7 +132,10 @@ textarea {
 /* ##################################################################### */
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
-
+    
+    body{
+        overflow-x: hidden;
+    }
     button{
         background-color: lightblue;
         border : none;

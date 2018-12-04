@@ -49,11 +49,11 @@ class CarManager
     public function addCar(Car $car)
      {
         $req = $this->getDb()->prepare('INSERT INTO Vehicles(brand, type, color, spec, doors) VALUES(:brand, :type, :color, :spec, :doors)');
-        $req->bindValue(':brand', $motor->getBrand(), PDO::PARAM_STR);
-        $req->bindValue(':type', $motor->getType(), PDO::PARAM_STR);
-        $req->bindValue(':color', $motor->getColor(), PDO::PARAM_STR);
-        $req->bindValue(':spec', $motor->getSpec(), PDO::PARAM_STR);
-        $req->bindValue(':doors', $motor->getDoors(), PDO::PARAM_INT);
+        $req->bindValue(':brand', $car->getBrand(), PDO::PARAM_STR);
+        $req->bindValue(':type', $car->getType(), PDO::PARAM_STR);
+        $req->bindValue(':color', $car->getColor(), PDO::PARAM_STR);
+        $req->bindValue(':spec', $car->getSpec(), PDO::PARAM_STR);
+        $req->bindValue(':doors', $car->getDoors(), PDO::PARAM_INT);
         $req->execute();
     }
     /**
